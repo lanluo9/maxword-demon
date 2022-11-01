@@ -1,3 +1,6 @@
+// how to load User Defined Scripts .js: paste raw git link in scripts options. https://github.com/ninja33/ODH/issues/40
+// TODO: add this to built-in scripts
+
 /* global api */
 class enen_Wiktionary {
     constructor(options) {
@@ -53,53 +56,53 @@ class enen_Wiktionary {
         if (!dictionary) return notes; // return empty notes
         console.log(dictionary);
 
-        // let expression = T(dictionary.querySelector('.h2_entry')); // usually extracted element is a class like `class="h2_entry"`. here it is the word itself
-        // let reading = T(dictionary.querySelector('.pron')); // pronunciation
+        let expression = T(dictionary.querySelector('.h2_entry')); // usually extracted element is a class like `class="h2_entry"`. here it is the word itself
+        let reading = T(dictionary.querySelector('.pron')); // pronunciation
 
-        // // let band = dictionary.querySelector('.word-frequency-img'); // how frequent the word is
-        // // let bandnum = band ? band.dataset.band : '';
-        // // let extrainfo = bandnum ? `<span class="band">${'\u25CF'.repeat(Number(bandnum))}</span>` : '';
+        let band = dictionary.querySelector('.word-frequency-img'); // how frequent the word is
+        let bandnum = band ? band.dataset.band : '';
+        let extrainfo = bandnum ? `<span class="band">${'\u25CF'.repeat(Number(bandnum))}</span>` : '';
 
-        // // let sound = dictionary.querySelector('a.hwd_sound'); // sound. different from pronunciation?
-        // // let audios = sound ? [sound.dataset.srcMp3] : [];
+        let sound = dictionary.querySelector('a.hwd_sound'); // sound. different from pronunciation?
+        let audios = sound ? [sound.dataset.srcMp3] : [];
 
-        // // make definition segment
-        // let definitions = [];
-        // let defblocks = dictionary.querySelectorAll('.hom') || [];
-        // for (const defblock of defblocks) {
-        //     let pos = T(defblock.querySelector('.pos'));
-        //     pos = pos ? `<span class="pos">${pos}</span>` : ''; // github copilot explains this line: if pos is not empty, then add pos to pos, otherwise add nothing
-        //     let eng_tran = T(defblock.querySelector('.sense .def')); // `def` is a div class under `sense`, another div class
-        //     if (!eng_tran) continue;
-        //     let definition = '';
-        //     eng_tran = eng_tran.replace(RegExp(expression, 'gi'), '<b>$&</b>');
-        //     eng_tran = `<span class='eng_tran'>${eng_tran}</span>`;
-        //     let tran = `<span class='tran'>${eng_tran}</span>`;
-        //     definition += `${pos}${tran}`;
+        // make definition segment
+        let definitions = [];
+        let defblocks = dictionary.querySelectorAll('.hom') || [];
+        for (const defblock of defblocks) {
+            let pos = T(defblock.querySelector('.pos'));
+            pos = pos ? `<span class="pos">${pos}</span>` : ''; // github copilot explains this line: if pos is not empty, then add pos to pos, otherwise add nothing
+            let eng_tran = T(defblock.querySelector('.sense .def')); // `def` is a div class under `sense`, another div class
+            if (!eng_tran) continue;
+            let definition = '';
+            eng_tran = eng_tran.replace(RegExp(expression, 'gi'), '<b>$&</b>');
+            eng_tran = `<span class='eng_tran'>${eng_tran}</span>`;
+            let tran = `<span class='tran'>${eng_tran}</span>`;
+            definition += `${pos}${tran}`;
 
-        //     // make example segment
-        //     let examps = defblock.querySelectorAll('.sense .cit.type-example') || '';
-        //     if (examps.length > 0 && this.maxexample > 0) {
-        //         definition += '<ul class="sents">';
-        //         for (const [index, examp] of examps.entries()) {
-        //             if (index > this.maxexample - 1) break; // to control only 2 example sentence.
-        //             let eng_examp = T(examp) ? T(examp).replace(RegExp(expression, 'gi'), '<b>$&</b>') : '';
-        //             definition += eng_examp ? `<li class='sent'><span class='eng_sent'>${eng_examp}</span></li>` : '';
-        //         }
-        //         definition += '</ul>';
-        //     }
-        //     definition && definitions.push(definition);
-        // }
+            // make example segment
+            let examps = defblock.querySelectorAll('.sense .cit.type-example') || '';
+            if (examps.length > 0 && this.maxexample > 0) {
+                definition += '<ul class="sents">';
+                for (const [index, examp] of examps.entries()) {
+                    if (index > this.maxexample - 1) break; // to control only 2 example sentence.
+                    let eng_examp = T(examp) ? T(examp).replace(RegExp(expression, 'gi'), '<b>$&</b>') : '';
+                    definition += eng_examp ? `<li class='sent'><span class='eng_sent'>${eng_examp}</span></li>` : '';
+                }
+                definition += '</ul>';
+            }
+            definition && definitions.push(definition);
+        }
 
         let css = this.renderCSS();
         notes.push({
             css,
             dictionary,
-            // expression,
-            // reading,
-            // // extrainfo,
-            // definitions,
-            // // audios,
+            expression,
+            reading,
+            extrainfo,
+            definitions,
+            audios,
         });
         return notes;
     }
