@@ -56,12 +56,12 @@ class enen_Wiktionary {
         // let expression = T(dictionary.querySelector('.h2_entry')); // usually extracted element is a class like `class="h2_entry"`. here it is the word itself
         // let reading = T(dictionary.querySelector('.pron')); // pronunciation
 
-        // let band = dictionary.querySelector('.word-frequency-img'); // how frequent the word is
-        // let bandnum = band ? band.dataset.band : '';
-        // let extrainfo = bandnum ? `<span class="band">${'\u25CF'.repeat(Number(bandnum))}</span>` : '';
+        // // let band = dictionary.querySelector('.word-frequency-img'); // how frequent the word is
+        // // let bandnum = band ? band.dataset.band : '';
+        // // let extrainfo = bandnum ? `<span class="band">${'\u25CF'.repeat(Number(bandnum))}</span>` : '';
 
-        // let sound = dictionary.querySelector('a.hwd_sound'); // sound. different from pronunciation?
-        // let audios = sound ? [sound.dataset.srcMp3] : [];
+        // // let sound = dictionary.querySelector('a.hwd_sound'); // sound. different from pronunciation?
+        // // let audios = sound ? [sound.dataset.srcMp3] : [];
 
         // // make definition segment
         // let definitions = [];
@@ -90,10 +90,11 @@ class enen_Wiktionary {
         //     }
         //     definition && definitions.push(definition);
         // }
+
         let css = this.renderCSS();
         notes.push({
+            css,
             dictionary,
-            // css,
             // expression,
             // reading,
             // // extrainfo,
